@@ -181,7 +181,7 @@ SELECT 'Copying data into Person.Person';
 SELECT 'Copying data into Person.StateProvince';
 \copy Person.StateProvince FROM './StateProvince.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Person.Address';
-\copy Person.Address FROM './Address.csv' DELIMITER E'\t' CSV ENCODING 'latin1';
+\copy Person.Address FROM './Address.csv' DELIMITER E'\t' CSV ENCODING 'UTF8';
 SELECT 'Copying data into Person.AddressType';
 \copy Person.AddressType FROM './AddressType.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Person.BusinessEntityAddress';
@@ -276,7 +276,7 @@ SELECT 'Copying data into HumanResources.EmployeeDepartmentHistory';
 SELECT 'Copying data into HumanResources.EmployeePayHistory';
 \copy HumanResources.EmployeePayHistory FROM './EmployeePayHistory.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into HumanResources.JobCandidate';
-\copy HumanResources.JobCandidate FROM './JobCandidate.csv' DELIMITER E'\t' CSV ENCODING 'latin1';
+\copy HumanResources.JobCandidate FROM './JobCandidate.csv' DELIMITER E'\t' CSV ENCODING 'UTF8';
 SELECT 'Copying data into HumanResources.Shift';
 \copy HumanResources.Shift FROM './Shift.csv' DELIMITER E'\t' CSV;
 

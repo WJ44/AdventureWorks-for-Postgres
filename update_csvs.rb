@@ -47,23 +47,26 @@
 
 
 Dir.glob('./*.csv') do |csv_file|
-  f = if (is_needed = csv_file.end_with?('/Address.csv'))
-        File.open(csv_file, "rb:WINDOWS-1252:UTF-8")
-      else
-        File.open(csv_file, "rb:UTF-16LE:UTF-8")
-      end
+  is_needed = false
+  f = File.open(csv_file, "rb:UTF-8:UTF-8")
+
   output = ""
   text = ""
   is_first = true
   is_pipes = false
+
   begin
   f.each do |line|
     if is_first
       if line.include?("+|")
         is_pipes = true
+        is_needed = true
       end
       if line[0] == "\uFEFF"
         line = line[1..-1]
+        is_needed = true
+      end
+      if line.include?("&|") || line.include?("\tE6100000010C")
         is_needed = true
       end
     end
@@ -92,7 +95,7 @@ Dir.glob('./*.csv') do |csv_file|
   if is_needed
     puts "Processing #{csv_file}"
     f.close
-    w = File.open(csv_file + ".xyz", "w")
+    w = File.open(csv_file + ".xyz", "w:UTF-8")
     w.write(output)
     w.close
     File.delete(csv_file)
@@ -101,25 +104,20 @@ Dir.glob('./*.csv') do |csv_file|
 
   # Here's a list of files that get snagged here:
   #    Address.csv
-  #    AWBuildVersion.csv
-  #    CreditCard.csv
-  #    Culture.csv
-  #    Currency.csv
-  #    Department.csv
-  #    EmployeeDepartmentHistory.csv
-  #    EmployeePayHistory.csv
-  #    Product.csv
-  #    ProductCostHistory.csv
-  #    ProductModelIllustration.csv
-  #    ProductReview.csv
-  #    SalesOrderDetail.csv
-  #    SalesTerritory.csv
-  #    Shift.csv
-  #    ShipMethod.csv
-  #    ShoppingCartItem.csv
-  #    SpecialOffer.csv
-  #    Vendor.csv
-  #    WorkOrder.csv
+  #    BusinessEntity.csv
+  #    BusinessEntityAddress.csv
+  #    BusinessEntityContact.csv
+  #    Document.csv
+  #    EmailAddress.csv
+  #    Illustration.csv
+  #    JobCandidate.csv
+  #    Password.csv
+  #    Person.csv
+  #    PersonPhone.csv
+  #    PhoneNumberType.csv
+  #    ProductModel.csv
+  #    ProductPhoto.csv
+  #    Store.csv
   rescue Encoding::InvalidByteSequenceError
     f.close
   end
