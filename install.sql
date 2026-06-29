@@ -643,7 +643,7 @@ SELECT 'Copying data into Production.Product';
 SELECT 'Copying data into Production.ProductCostHistory';
 \copy Production.ProductCostHistory FROM 'ProductCostHistory.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Production.ProductDescription';
-\copy Production.ProductDescription FROM 'ProductDescription.csv' DELIMITER E'\t' CSV;
+\copy Production.ProductDescription FROM 'ProductDescription.csv' DELIMITER E'\t' CSV QUOTE E'\001' ENCODING 'UTF8';
 SELECT 'Copying data into Production.ProductDocument';
 \copy Production.ProductDocument FROM 'ProductDocument.csv' DELIMITER E'\t' CSV;
 SELECT 'Copying data into Production.Location';
